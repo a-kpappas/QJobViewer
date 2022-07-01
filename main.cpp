@@ -1,13 +1,23 @@
 #include "qjobviewer.h"
 
 #include <QApplication>
+#include <QLocale>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "QJobViewer_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            a.installTranslator(&translator);
+            break;
+        }
+    }
     QJobViewer w;
     w.show();
-    auto root = w.centralWidget();
-    QTabWidget* tabBar = root->findChild<QTabWidget *>("tabWidget");
     return a.exec();
 }

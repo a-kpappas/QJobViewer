@@ -11,14 +11,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Network)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+
+set(TS_FILES QJobViewer_en_US.ts)
 
 set(PROJECT_SOURCES
         main.cpp
-        qjobviewer.cpp
-        qjobviewer.h
-        qjobviewer.ui
+        qjobviewer.h    qjobviewer.cpp
+        jobmodel.h      jobmodel.cpp
+        ${TS_FILES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -30,6 +32,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 #    set_property(TARGET QJobViewer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+
+    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
     if(ANDROID)
         add_library(QJobViewer SHARED
@@ -42,11 +46,11 @@ else()
             ${PROJECT_SOURCES}
         )
     endif()
+
+    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-set(NS_ROOT Qt${QT_VERSION_MAJOR})
-
-target_link_libraries(QJobViewer PRIVATE ${NS_ROOT}::Widgets ${NS_ROOT}::Network)
+target_link_libraries(QJobViewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(QJobViewer PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

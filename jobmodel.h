@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QFile>
 #include <QAbstractTableModel>
+#include <QUrl>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 class JobModel : public QObject
 {
@@ -13,7 +16,8 @@ public:
     explicit JobModel(QObject *parent = nullptr);
 
 signals:
-
+private:
+    void load(QJsonObject *json);
 };
 
 class SettingsTabModel: public QAbstractTableModel{
@@ -21,7 +25,7 @@ class SettingsTabModel: public QAbstractTableModel{
 
 public:
     explicit SettingsTabModel(QObject *parent = nullptr);
-    SettingsTabModel(const QList<std::pair<QString,QString>>, QObject *parent = nullptr);
+    SettingsTabModel(const QList<std::pair<QString,QString>> list, QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent) const override;
     int columnCount(const QModelIndex &parent) const override;

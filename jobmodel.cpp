@@ -1,11 +1,27 @@
 #include "jobmodel.h"
+#include <QNetworkAccessManager>
 
 JobModel::JobModel(QObject *parent)
     : QObject{parent}
-{
+{}
 
+void JobModel::load(QJsonObject *json)
+{
+    for (QJsonObject::const_iterator it = json->constBegin(); it < json->constEnd(); it++){
+        qDebug()<< it.key();
+    }
 }
 
+
+SettingsTabModel::SettingsTabModel(QObject *parent)
+    : QAbstractTableModel{parent}
+{}
+
+SettingsTabModel::SettingsTabModel(const QList<std::pair<QString, QString>> list, QObject *parent)
+    : QAbstractTableModel{parent}
+{
+    m_list = list;
+}
 
 int SettingsTabModel::rowCount(const QModelIndex &parent) const
 {
@@ -57,3 +73,5 @@ QVariant SettingsTabModel::headerData(int section, Qt::Orientation orientation, 
     }
     return QVariant();
 }
+
+

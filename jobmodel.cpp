@@ -1,14 +1,27 @@
 #include "jobmodel.h"
 #include <QNetworkAccessManager>
-
+#include <QJsonValue>
+#include <QJsonArray>
 JobModel::JobModel(QObject *parent)
     : QObject{parent}
 {
 }
 void JobModel::load(QJsonObject json)
 {
-    for (QJsonObject::const_iterator it = json.constBegin(); it < json.constEnd(); it++){
-        qDebug()<< it.key();
+    QVariantMap map;
+    qDebug()<<json.keys();
+    auto root = json.value("job");
+    auto bracket = json.value("job").toObject()["settings"];
+    auto arr = bracket.toArray();
+    auto val = bracket.toVariant();
+    auto variant = json.toVariantMap();
+    auto var = variant["job"].toMap()["settings"];
+    auto test = var.toMap();
+    for (auto iter = test.begin(); iter!=test.end(); ++iter) {
+        qDebug() << '[' << iter.key() << "] = " << iter.value().toString()<< "; ";
+    }
+    for(;;){
+        qDebug()<< val;
     }
 }
 

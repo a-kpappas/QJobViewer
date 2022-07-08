@@ -52,8 +52,13 @@ JobGetter::JobGetter(QWidget *parent)
 }
 
 void JobGetter::loadFile(){
-    auto fileName = QFileDialog::getOpenFileName(this,
-        tr("Open JSON"), QDir::currentPath(), tr("JSON Files (*.json)"));
+    QString fileName;
+#ifdef QT_DEBUG
+    fileName = "/home/apappas/qa-dev/hw2022/test.json";
+#else
+    fileName = QFileDialog::getOpenFileName(this,
+    tr("Open JSON"), QDir::currentPath(), tr("JSON Files (*.json)"));
+#endif
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)){
         qWarning()<<"Couldn't open file "<<fileName;

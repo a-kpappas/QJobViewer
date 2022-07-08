@@ -3,15 +3,14 @@
 
 JobModel::JobModel(QObject *parent)
     : QObject{parent}
-{}
-
-void JobModel::load(QJsonObject *json)
 {
-    for (QJsonObject::const_iterator it = json->constBegin(); it < json->constEnd(); it++){
+}
+void JobModel::load(QJsonObject json)
+{
+    for (QJsonObject::const_iterator it = json.constBegin(); it < json.constEnd(); it++){
         qDebug()<< it.key();
     }
 }
-
 
 SettingsTabModel::SettingsTabModel(QObject *parent)
     : QAbstractTableModel{parent}
@@ -45,12 +44,12 @@ QVariant SettingsTabModel::data(const QModelIndex &index, int role) const
         auto row = m_list.at(index.row());
 
         switch (index.column()) {
-            case 0:
-                return row.first;
-            case 1:
-                return row.second;
-            default:
-                break;
+        case 0:
+            return row.first;
+        case 1:
+            return row.second;
+        default:
+            break;
         }
     }
     return QVariant();
@@ -63,12 +62,12 @@ QVariant SettingsTabModel::headerData(int section, Qt::Orientation orientation, 
 
     if (orientation == Qt::Horizontal) {
         switch (section) {
-            case 0:
-                return tr("Variable");
-            case 1:
-                return tr("Value");
-            default:
-                break;
+        case 0:
+            return tr("Variable");
+        case 1:
+            return tr("Value");
+        default:
+            break;
         }
     }
     return QVariant();

@@ -15,9 +15,12 @@ class JobModel : public QObject
 public:
     explicit JobModel(QObject *parent = nullptr);
 
+public slots:
+    void load(QJsonObject json);
+
 signals:
+
 private:
-    void load(QJsonObject *json);
 };
 
 class SettingsTabModel: public QAbstractTableModel{

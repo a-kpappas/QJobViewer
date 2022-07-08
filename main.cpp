@@ -1,5 +1,5 @@
 #include "qjobviewer.h"
-
+#include "jobmodel.h"
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
         }
     }
     QJobViewer w;
+    JobModel model;
+    QObject::connect(&w,&QJobViewer::jsonLoaded,&model,&JobModel::load);
     w.show();
     return a.exec();
 }

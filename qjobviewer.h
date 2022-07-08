@@ -8,7 +8,26 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTabWidget>
+#include <QFileDialog>
 #include <QDebug>
+#include <QJsonObject>
+
+class JobGetter : public QWidget{
+    Q_OBJECT
+public:
+    JobGetter(QWidget *parent = nullptr);
+    ~JobGetter(){};
+signals:
+    void jsonLoaded(QJsonObject json);
+private:
+    QComboBox* m_urlInputCBox;
+    QPushButton* m_viewButton;
+    QLabel* m_displayLabel;
+    QPushButton* m_fileButton;
+    QFileDialog* m_fileDialog;
+    void setURL();
+    void loadFile();
+};
 
 class QJobViewer : public QMainWindow
 {
@@ -18,23 +37,15 @@ public:
     ~QJobViewer(){};
 signals:
     void urlUpdated(QUrl url);
+    void jsonLoaded(QJsonObject json);
+
 private:
     QWidget* central;
-    QWidget* inputField;
+    JobGetter* inputField;
     QTabWidget* tabs;
 };
 
-class JobGetter : public QWidget{
-    Q_OBJECT
-public:
-    JobGetter(QWidget *parent = nullptr);
-    ~JobGetter(){};
-private:
-    QComboBox* m_urlInputCBox;
-    QPushButton* m_viewButton;
-    QLabel* m_displayLabel;
-    void setURL();
-};
+
 
 #endif // QJOBVIEWER_H
 

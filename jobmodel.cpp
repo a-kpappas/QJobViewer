@@ -5,34 +5,46 @@
 JobModel::JobModel(QObject *parent)
     : QObject{parent}
 {
+    settingsModel = new SettingsTabModel(this);
 }
 void JobModel::load(QJsonObject json)
 {
-    QVariantMap map;
-    qDebug()<<json.keys();
-    auto root = json.value("job");
-    auto bracket = json.value("job").toObject()["settings"];
-    auto arr = bracket.toArray();
-    auto val = bracket.toVariant();
-    auto variant = json.toVariantMap();
-    auto var = variant["job"].toMap()["settings"];
-    auto test = var.toMap();
-    for (auto iter = test.begin(); iter!=test.end(); ++iter) {
-        qDebug() << '[' << iter.key() << "] = " << iter.value().toString()<< "; ";
-    }
-    for(;;){
-        qDebug()<< val;
-    }
+    auto root = json.value("job").toVariant().toMap();
+    auto settings = root["settings"].toMap();
+    qDebug()<<settings;
+    settingsModel->load(settings);
+//    for (auto iter = test.begin(); iter!=test.end(); ++iter) {
+//        qDebug() << '[' << iter.key() << "] = " << iter.value().toString()<< "; ";
+//    }
+
 }
 
 SettingsTabModel::SettingsTabModel(QObject *parent)
     : QAbstractTableModel{parent}
 {}
 
-SettingsTabModel::SettingsTabModel(const QList<std::pair<QString, QString>> list, QObject *parent)
-    : QAbstractTableModel{parent}
+//SettingsTabModel::SettingsTabModel(const QMap<QString, QString> list, QObject *parent)
+//    : QAbstractTableModel{parent}
+//{
+//    m_list = list;
+//}
+
+void SettingsTabModel::load(const QVariantMap& map)
 {
-    m_list = list;
+    beginResetModel();
+    m_list.clear();
+    for (QVariantMap::ConstIterator it = map.cbegin();it!=map.cend();++it){
+        m_list.push_back(std::make_pair(it.key(),it.value().toString()));
+    }
+//    for (std::size_t i = 0; i<m_list.size();++i){
+//        auto first = createIndex( i,0);
+//        emit this->dataChanged(first,first,{Qt::DisplayRole});
+//        auto second = createIndex(i,1);
+//        emit this->dataChanged(second,second,{Qt::DisplayRole});
+//        //emit this->dataChanged()
+//    }
+//    emit this->dataChanged(QModelIndex(),QModelIndex());
+    endResetModel();
 }
 
 int SettingsTabModel::rowCount(const QModelIndex &parent) const

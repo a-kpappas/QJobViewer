@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QJsonObject>
+#include <QTableView>
 
 class JobGetter : public QWidget{
     Q_OBJECT
@@ -35,6 +36,8 @@ class QJobViewer : public QMainWindow
 public:
     QJobViewer(QWidget *parent = nullptr);
     ~QJobViewer(){};
+    QTableView* settingsView;
+
 signals:
     void urlUpdated(QUrl url);
     void jsonLoaded(QJsonObject json);

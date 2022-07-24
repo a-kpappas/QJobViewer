@@ -19,7 +19,9 @@ int main(int argc, char *argv[])
     }
     QJobViewer w;
     JobModel model;
+    w.settingsView->setModel(model.settingsModel);
     QObject::connect(&w,&QJobViewer::jsonLoaded,&model,&JobModel::load);
+    //QObject::connect(&w,&QJobViewer::jsonLoaded,&(w.settingsView),&QTableView::reset();
     w.show();
     return a.exec();
 }

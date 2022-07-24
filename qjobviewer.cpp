@@ -15,7 +15,8 @@ QJobViewer::QJobViewer(QWidget *parent)
 
     tabs = new QTabWidget;
     auto settingsPage = new QWidget;
-    auto placeholder1 = new QLabel("settings placeholder",settingsPage);
+    //auto placeholder1 = new QLabel("settings placeholder",settingsPage);
+    settingsView = new QTableView(settingsPage);
     tabs->addTab(settingsPage,"Settings");
     layout->addWidget(tabs);
 
@@ -54,7 +55,7 @@ JobGetter::JobGetter(QWidget *parent)
 void JobGetter::loadFile(){
     QString fileName;
 #ifdef QT_DEBUG
-    fileName = "/home/apappas/qa-dev/hw2022/test.json";
+    fileName = "/home/user/qa-dev/QJobViewer/test.json";
 #else
     fileName = QFileDialog::getOpenFileName(this,
     tr("Open JSON"), QDir::currentPath(), tr("JSON Files (*.json)"));

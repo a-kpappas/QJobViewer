@@ -6,10 +6,10 @@
 QJobViewer::QJobViewer(QWidget *parent)
     : QMainWindow(parent)
 {
-    central = new QWidget(this);
+    central =  new QWidget(this);
     this->setCentralWidget(central);
-    auto layout = new QGridLayout(central);
 
+    auto layout = new QGridLayout(central);
     // Widget for loading json to the model
     inputField = new JobGetter;
     layout->addWidget(inputField);
@@ -21,13 +21,15 @@ QJobViewer::QJobViewer(QWidget *parent)
 
     //1.a. Set up settings tab
     auto settingsPage = new QWidget;
-    auto settingsGrid = new QGridLayout(settingsPage);
+    auto settingsGrid = new QVBoxLayout(settingsPage);
     settingsView = new QTableView();
     settingsGrid->addWidget(settingsView);
     tabs->addTab(settingsPage,"Settings");
 
     //2. Finish tab widget
     layout->addWidget(tabs);
+    central->setLayout(layout);
+    // this->setLayout(layout);
 
 }
 

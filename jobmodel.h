@@ -27,6 +27,14 @@ private:
     std::vector<std::pair<QString,QString>> m_list;
 };
 
+
+class InfoModel: public QAbstractListModel{
+    Q_OBJECT
+
+    explicit InfoModel(QObject *parent = nullptr);
+    void load(const QVariant& map);
+};
+
 class JobModel : public QObject
 {
     Q_OBJECT

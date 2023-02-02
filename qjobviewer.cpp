@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
+#include <QRegularExpression>
 
 QJobViewer::QJobViewer(QWidget *parent)
     : QMainWindow(parent)
@@ -59,13 +60,23 @@ JobGetter::JobGetter(QWidget *parent)
 
     m_displayLabel = new QLabel("");
     fieldLayout->addWidget(m_displayLabel,1,0);
+    QUrl url("https://openqa.opensuse.org/tests/3084627");
+    QString host = url.host();
+    QStringList list = host.split(".");
+    auto num = (int)list.size();
+    QString dir_name;
+    for (const auto& i: list){
+        dir_name.prepend(i+".");
+    }
+    QString out = list.at(2)+"."+list.at(1)+"."+list.at(0);
+    m_displayLabel->setText(dir_name);
 
 }
 
 void JobGetter::loadFile(){
     QString fileName;
 #ifdef QT_DEBUG
-    fileName = "/home/user/qa-dev/QJobViewer/test.json";
+    fileName = "/home/apappas/qa-dev/QJobViewer/test.jsodddn";
 #else
     fileName = QFileDialog::getOpenFileName(this,
     tr("Open JSON"), QDir::currentPath(), tr("JSON Files (*.json)"));
@@ -74,6 +85,7 @@ void JobGetter::loadFile(){
     if (!file.open(QIODevice::ReadOnly)){
         qWarning()<<"Couldn't open file "<<fileName;
         m_displayLabel->setText("Couldn't open file "+fileName);
+        return;
     }
     QByteArray data = file.readAll();
     QJsonParseError err;

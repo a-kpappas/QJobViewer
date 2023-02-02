@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
         main.cpp
         qjobviewer.h    qjobviewer.cpp
         jobmodel.h      jobmodel.cpp
+        jobfetcher.h    jobfetcher.cpp
         ${TS_FILES}
 )
 

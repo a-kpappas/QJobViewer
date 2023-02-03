@@ -12,6 +12,7 @@ public:
     explicit JobFetcher(QObject *parent = nullptr);
     QJsonObject getJson(int job);
     QJsonObject getJson(QUrl job);
+    void createServerDir(QUrl url);
 signals:
 
 

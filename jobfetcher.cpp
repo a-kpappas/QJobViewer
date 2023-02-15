@@ -50,14 +50,15 @@ void JobFetcher::createServerDir(QUrl url){
     QDir data_path = QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     if (!data_path.exists()){
         if (QFileInfo::exists(data_path.absolutePath())){
-            qFatal()<<"Can't make data directory."<<data_path.absolutePath()<<"exists already.";
-            abort();
+            qCritical()<<"Can't make data directory. File"<<data_path.absolutePath()<<"exists already.";
         }
         if (!data_path.mkdir(data_path.absolutePath())){
-            qFatal()<<"Can't make data directory"<<data_path.absolutePath()<<"for unknown reasons.";
+            qCritical()<<"Can't make data directory"<<data_path.absolutePath()<<"for unknown reasons.";
+            abort();
         }
     }
 
+    // Reverse the hostname url to create , like org.opensuse.openqa
     QString host = url.host();
     QStringList list = host.split(".");
     QString dir_name;
@@ -68,21 +69,19 @@ void JobFetcher::createServerDir(QUrl url){
     dir_name.remove(QRegularExpression(".$"));
 
 
-    QDir server_path = data_path+dir_name;
-
+    QDir server_path = data_path.absoluteFilePath(dir_name);
     if (!server_path.exists()){
         if (QFileInfo::exists(server_path.absolutePath())){
-            qFatal()<<"Can't make server directory."<<server_path.absolutePath()<<"exists already.";
+            qCritical()<<"Can't make server directory. File"<<server_path.absolutePath()<<"exists already.";
             abort();
         }
-        if (!server_path.mkdir(server_path.absolutePath())){
-            qFatal<<"Can't make data directory"<<server_path.absolutePath()<<"for unknown reasons.";
+        if (!server_path.mkdir(dir_name)){
+            qCritical()<<"Can't make data directory"<<server_path.absolutePath()<<"for unknown reasons.";
             abort();
         }
     }
 }
-//void JobFetcher::fetch(QUrl url){
-//    QString host = url.host();
-//    QRegularExpression trim_http("^(http|https)://)"
-//    QRegularExpression re('(.*).(.*).(.*)');
-//}
+
+void JobFetcher::fetchImages(QString md5name, QString filename){
+    //
+}

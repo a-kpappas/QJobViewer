@@ -88,6 +88,7 @@ void JobGetter::loadFile(){
     emit jsonLoaded(doc.object());
 }
 
+
 void JobGetter::setURL()
 {
     auto txt = m_urlInputCBox->currentText();

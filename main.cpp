@@ -1,5 +1,7 @@
-#include "qjobviewer.h"
+#include "jobfetcher.h"
 #include "jobmodel.h"
+#include "qjobviewer.h"
+
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -17,11 +19,13 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
     QJobViewer w;
     JobModel model;
     w.settingsView->setModel(model.settingsModel);
     QObject::connect(&w,&QJobViewer::jsonLoaded,&model,&JobModel::load);
-    //QObject::connect(&w,&QJobViewer::jsonLoaded,&(w.settingsView),&QTableView::reset();
+    JobFetcher fetcher;
+
     w.show();
     return a.exec();
 }

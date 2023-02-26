@@ -82,6 +82,8 @@ void JobFetcher::createServerDir(QUrl url){
     }
 }
 
-void JobFetcher::fetchImages(QString md5name, QString filename){
-    //
+void JobFetcher::fetchImages(QUrl server, QString md5name, QString filename){
+    //https://openqa.opensuse.org/image/f57/1ad/24708fc31b1cf9722f80bdb231.png
+    server.setPath(md5name+"/"+filename+".png");
+
 }

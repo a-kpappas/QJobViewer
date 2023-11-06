@@ -28,6 +28,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(QJobViewer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        testresultsmodel.h testresultsmodel.cpp
+        resultsitem.h resultsitem.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET QJobViewer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

@@ -24,6 +24,7 @@ QJobViewer::QJobViewer(QWidget *parent)
     auto settingsPage = new QWidget;
     auto settingsGrid = new QVBoxLayout(settingsPage);
     settingsView = new QTableView();
+    settingsView->setSortingEnabled(true);
     settingsGrid->addWidget(settingsView);
     tabs->addTab(settingsPage,"Settings");
 

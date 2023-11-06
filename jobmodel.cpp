@@ -11,8 +11,10 @@ void JobModel::load(QJsonObject json)
 {
     auto root = json.value("job").toVariant().toMap();
     auto settings = root["settings"].toMap();
-    qDebug()<<settings;
+    auto testresults_data= root["testresults"].toJsonArray();
     settingsModel->load(settings);
+    resultsModel->loadData(testresults_data);
+
 //    for (auto iter = test.begin(); iter!=test.end(); ++iter) {
 //        qDebug() << '[' << iter.key() << "] = " << iter.value().toString()<< "; ";
 //    }

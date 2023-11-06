@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVariant>
+#include <testresultsmodel.h>
 
 class SettingsTabModel: public QAbstractTableModel{
     Q_OBJECT
@@ -42,6 +43,7 @@ class JobModel : public QObject
 public:
     explicit JobModel(QObject *parent = nullptr);
     SettingsTabModel *settingsModel;
+    TestresultsModel *resultsModel;
 public slots:
     void load(QJsonObject json);
 

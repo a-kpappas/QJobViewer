@@ -26,6 +26,17 @@ public:
     ResultsItem(const QJsonObject& result_data);
 
 
+    bool getAlways_rollback() const;
+
+    QString getCategory() const;
+    QJsonObject getDetails() const;
+    QString getExecution_time() const;
+    bool getFatal() const;
+    bool getHas_parser_text_result() const;
+    bool getMilestone() const;
+    QString getName() const;
+    QString getTestresult() const;
+
 signals:
 
 };

@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QVariant>
 #include <testresultsmodel.h>
+#include <QStandardItemModel>
 
 class SettingsTabModel: public QAbstractTableModel{
     Q_OBJECT

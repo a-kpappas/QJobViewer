@@ -37,6 +37,7 @@ public:
     QJobViewer(QWidget *parent = nullptr);
     ~QJobViewer(){};
     QTableView* settingsView;
+    QTableView* testresultsView;
 
 signals:
     void urlUpdated(QUrl url);

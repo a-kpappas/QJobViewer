@@ -6,7 +6,7 @@
 #include <QJsonArray>
 #include <resultsitem.h>
 
-class TestresultsModel : public QAbstractItemModel
+class TestresultsModel : public QAbstractTableModel
 {
     Q_OBJECT
     std::vector<ResultsItem> testresults;
@@ -14,6 +14,11 @@ class TestresultsModel : public QAbstractItemModel
 public:
     explicit TestresultsModel(QObject *parent = nullptr);
     void loadData(const QJsonArray &data);
+
+    // Obligatory implementation of virtual functions
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 signals:
 
 };

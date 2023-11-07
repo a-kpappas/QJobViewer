@@ -28,6 +28,13 @@ QJobViewer::QJobViewer(QWidget *parent)
     settingsGrid->addWidget(settingsView);
     tabs->addTab(settingsPage,"Settings");
 
+    //1.b Set up results tab
+    auto testresultsPage = new QWidget;
+    auto testresultsGrid = new QVBoxLayout(testresultsPage);
+    testresultsView = new QTableView();
+    testresultsGrid->addWidget(testresultsView);
+    tabs->addTab(testresultsPage,"Run results");
+
     //2. Finish tab widget
     layout->addWidget(tabs);
     central->setLayout(layout);

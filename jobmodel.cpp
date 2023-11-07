@@ -6,6 +6,7 @@ JobModel::JobModel(QObject *parent)
     : QObject{parent}
 {
     settingsModel = new SettingsTabModel(this);
+    resultsModel = new TestresultsModel(this);
 }
 void JobModel::load(QJsonObject json)
 {
@@ -61,8 +62,9 @@ int SettingsTabModel::columnCount(const QModelIndex &parent) const
 
 QVariant SettingsTabModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()){
         return QVariant();
+    }
 
     if (index.row() >= m_list.size() || index.row() < 0)
         return QVariant();

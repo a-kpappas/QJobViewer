@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     QJobViewer w;
     JobModel model;
     w.settingsView->setModel(model.settingsModel);
+    w.testresultsView->setModel(model.resultsModel);
     QObject::connect(&w,&QJobViewer::jsonLoaded,&model,&JobModel::load);
     JobFetcher fetcher;
 

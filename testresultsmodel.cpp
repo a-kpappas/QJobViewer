@@ -23,27 +23,21 @@ int TestresultsModel::rowCount(const QModelIndex &parent) const
 
 int TestresultsModel::columnCount(const QModelIndex &parent) const
 {
-    return parent.isValid()? 0: 4;
+    return parent.isValid()? 0: 3;
 }
 
 QVariant TestresultsModel::data(const QModelIndex &index, int role) const
 {
-    if (index.isValid() && index.row()>=0 && index.row() < this->testresults.size()){
+    if (index.isValid() && index.row()>=0 && index.row() < this->testresults.size() && role == Qt::DisplayRole){
         auto i = testresults.at(index.row());
 
         switch (index.column()) {
         case 0:
             return i.getName();
-            break;
         case 1:
             return i.getTestresult();
-            break;
         case 2:
-            return i.getCategory();
-            break;
-        case 3:
             return i.getExecution_time();
-            break;
         default:
             break;
         }
@@ -51,4 +45,23 @@ QVariant TestresultsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+
+QVariant TestresultsModel::headerData(int section, Qt::Orientation orientation, int role) const{
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    if (orientation == Qt::Horizontal) {
+        switch (section) {
+        case 0:
+            return tr("Name");
+        case 1:
+            return tr("Test Result");
+        case 2:
+            return tr("Execution Time");
+        default:
+            break;
+        }
+    }
+    return QVariant();
+}
 

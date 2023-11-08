@@ -5,11 +5,6 @@ bool ResultsItem::getAlways_rollback() const
     return always_rollback;
 }
 
-QString ResultsItem::getCategory() const
-{
-    return category;
-}
-
 QJsonObject ResultsItem::getDetails() const
 {
     return details;
@@ -51,7 +46,7 @@ ResultsItem::ResultsItem()
 }
 
 QJsonValue ValueOrDeath(const QJsonObject& jsonObject, QString key){
-    if (jsonObject.value(key) == QJsonValue::Undefined){
+    if (jsonObject.value(key).isUndefined()){
         qFatal()<<"Aborting because key "<<key<<" was not found in json.";
     }
     return jsonObject.value(key);
@@ -70,6 +65,8 @@ ResultsItem::ResultsItem(const QJsonObject &result_data)
     testresult = ValueOrDeath(result_data,"result").toString();
 
     //category is an optional value so we won't die for it.
-    category = result_data.value("category").toString();
+    if (result_data.value("category").isString()){
+        name = result_data.value("category").toString() + "/" + name;
+    }
 }
 

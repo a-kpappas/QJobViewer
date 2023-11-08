@@ -13,7 +13,6 @@
 class ResultsItem
 {
     bool always_rollback=0;
-    QString category;
     QJsonObject details;     // This will be turned into a submodel. (Do submodels make any sense?)
     QString execution_time;
     bool fatal=0;
@@ -28,7 +27,6 @@ public:
 
     bool getAlways_rollback() const;
 
-    QString getCategory() const;
     QJsonObject getDetails() const;
     QString getExecution_time() const;
     bool getFatal() const;
